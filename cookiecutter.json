@@ -1,7 +1,9 @@
 {
     "project_name": "project_name",
-    "package_name": "{{cookiecutter.package_display_name.lower().replace(' ', '_').replace('-', '_')}}",
+    "package_name": "{{cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_')}}",
     "author_name": "75.52 - 2020C2 - G5",
     "author_email": "FIUBA email",
-    "description": "Short description of the project."
+    "description": "Short description of the project.",
+    "github_user": "7552-2020C2-grupo5",
+    "repo": "{{coookiecutter.package_name}}"
 }
