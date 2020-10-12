@@ -1,4 +1,5 @@
 # {{ cookiecutter.project_name }}
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}?style=flat-square)
 
 {{ cookiecutter.description }}
 
@@ -89,7 +90,7 @@ We use either [numpy style](https://numpydoc.readthedocs.io/en/latest/format.htm
 - method/functions to explain what it does and what it's parameters are
 
 ## Testing
-We use the [pytest framework](https://docs.pytest.org/en/latest/) to test {{cookiecutter.package_display_name}}. The easiest way to run tests it through `nox` with `nox --sessions tests`.
+We use the [pytest framework](https://docs.pytest.org/en/latest/) to test {{cookiecutter.project_name}}. The easiest way to run tests it through `nox` with `nox --sessions tests`.
 
 # Docker
 
