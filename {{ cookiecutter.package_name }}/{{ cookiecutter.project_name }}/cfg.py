@@ -1,3 +1,5 @@
 """Project configurations."""
 
-from decouple import config  # pylint: disable=unused-import
+from youconfigme import AutoConfig
+
+config = AutoConfig()
