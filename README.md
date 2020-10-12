@@ -21,6 +21,66 @@ $ cookiecutter https://github.com/7552-2020C2-grupo5/flask_cookiecutter
 
 Or you can point to your local clone of the repo.
 
+## Init repo
+```bash
+git init
+```
+
+## Install pre-commmit hooks
+```bash
+pre-commit install
+pre-commit install -t pre-push
+```
+
+## Add some model
+In `models.py`:
+
+```python
+class TodoSimple(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    reminder = db.Column(db.String)
+```
+
+## Add initial migration
+```bash
+poetry run package_name/manage.py db migrate -m "add todo model"
+```
+
+## Add some resources!
+In `api.py`:
+
+```python
+
+todo_model = api.model('ToDo', {
+    "reminder": fields.String
+})
+
+@api.route('/todo/<int:todo_id>')
+class TodoSimpleResource(Resource):
+    @api.marshall_with(todo_model, envelope='resource')
+    def get(self, todo_id):
+        todo = TodoSimple.query.filter(TodoSimple.id == todo_id).first()
+        return todo
+
+    @api.marshall_with(todo_model, envelope='resource')
+    def put(self, todo_id):
+        parser = reqparse.RequestParser()
+        parser.add_argument('reminder', type=str, help='reminder description')
+        args = parser.parse_args(strict=True)
+        reminder = args.reminder
+        new_todo = TodoSimple(id=todo_id, reminder=reminder)
+        db.session.add(new_todo)
+        db.session.commit()
+        return new_todo
+```
+
+## Start docker
+```bash
+cd docker
+docker-compose build
+docker-compose up
+```
+
 # Components
 
 ## `flask-restx`
