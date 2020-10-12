@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+    postgres:
+        image: postgres:9.6
+        environment:
+          - POSTGRES_USER={{cookiecutter.package_name}}
+          - POSTGRES_PASSWORD={{cookiecutter.package_name}}
+          - POSTGRES_DB={{cookiecutter.package_name}}
+          - PGDATA=/var/lib/postgresql/data/pgdata
+        ports:
+          - 54321:5432
+        volumes:
+          - /var/lib/postgresql/data/pgdata
+        logging:
+            options:
+                max-size: 10m
+                max-file: "3"
+    api:
+      container_name: statsar_api
+      depends_on:
+        - postgres
+      build:
+        context: .
+        dockerfile: api-Dockerfile
+      ports:
+        - "5000:5000"
+      environment:
+        - DATABASE_URL=postgres://{{cookiecutter.package_name}}:{{cookiecutter.package_name}}@postgres/{{cookiecutter.package_name}}
