@@ -90,6 +90,8 @@ docker-compose up
 
 It provides several useful components, such as [resourceful routing](https://flask-restx.readthedocs.io/en/latest/quickstart.html#resourceful-routing), [argument parsing](https://flask-restx.readthedocs.io/en/latest/quickstart.html#argument-parsing), [response marshalling](https://flask-restx.readthedocs.io/en/latest/marshalling.html), [error handling](https://flask-restx.readthedocs.io/en/latest/errors.html), [swagger documentation](https://flask-restx.readthedocs.io/en/latest/swagger.html) and more.
 
+[Here](https://flask-restx.readthedocs.io/en/latest/quickstart.html) is a quickstart guide on `flask-restx`.
+
 ## `flask-migrate`
 [flask-migrate](https://flask-migrate.readthedocs.io/en/latest/) defines themselves as:
 
@@ -118,4 +120,5 @@ Let's go through the hassle of setting linting and testing jobs on github once a
 
 ## Docker
 Minimal docker/podman config with postgres.
+
 
