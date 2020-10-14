@@ -48,7 +48,7 @@ class TodoSimple(db.Model):
 
 ## Add initial migration
 ```bash
-poetry poetry run package_name/manage.py db migrate -m "add todo model"
+poetry poetry run python package_name/manage.py db migrate -m "add todo model"
 ```
 
 ## Add some resources!
@@ -56,7 +56,7 @@ In `api.py`:
 
 ```python
 from flask_restx import Api, Resource, reqparse, fields
-from cc_playground.models import db, TodoSimple
+from package_name.models import db, TodoSimple
 
 
 todo_model = api.model('ToDo', {"reminder": fields.String})
@@ -86,6 +86,15 @@ class TodoSimpleResource(Resource):
 cd docker
 docker-compose build
 docker-compose up
+```
+
+## Try it out!
+If you've followed this example, you can test it with
+
+```python
+import requests as r
+print(r.put('http://localhost:5000/v1/todo/1', data={'reminder': 'Remember the eggs'}).json())
+print(r.get('http://localhost:5000/v1/todo/1').json())
 ```
 
 # Components

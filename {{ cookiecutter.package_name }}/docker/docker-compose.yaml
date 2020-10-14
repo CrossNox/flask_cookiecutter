@@ -3,9 +3,9 @@ services:
     postgres:
         image: postgres:11.9
         environment:
-          - POSTGRES_USER=cc_playground
-          - POSTGRES_PASSWORD=cc_playground
-          - POSTGRES_DB=cc_playground
+          - POSTGRES_USER={{cookiecutter.package_name}}
+          - POSTGRES_PASSWORD={{cookiecutter.package_name}}
+          - POSTGRES_DB={{cookiecutter.package_name}}
           - PGDATA=/var/lib/postgresql/data/pgdata
         ports:
           - 54321:5432
@@ -16,7 +16,7 @@ services:
                 max-size: 10m
                 max-file: "3"
     api:
-      container_name: cc_playground_api
+      container_name: {{cookiecutter.package_name}}_api
       depends_on:
         - postgres
       build:
@@ -27,4 +27,4 @@ services:
       ports:
         - "5000:5000"
       environment:
-        - DATABASE_URL=postgres://cc_playground:cc_playground@postgres/cc_playground
+        - DATABASE_URL=postgres://{{cookiecutter.package_name}}:{{cookiecutter.package_name}}@postgres/{{cookiecutter.package_name}}

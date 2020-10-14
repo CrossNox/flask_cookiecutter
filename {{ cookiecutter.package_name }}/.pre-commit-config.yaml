@@ -4,11 +4,11 @@ repos:
     hooks:
     - id: black
       name: black
-      entry: black
+      entry: poetry run black
       language: system
       types: [python]
       args: [--skip-string-normalization]
-      exclude: docs/*
+      exclude: {{ cookiecutter.package_name}}/migrations|docs
 -   repo: git://github.com/pre-commit/pre-commit-hooks
     rev: v2.5.0
     hooks:
@@ -16,49 +16,49 @@ repos:
     - id: requirements-txt-fixer
     - id: flake8
       name: flake8
-      entry: flake8
+      entry: poetry run flake8
       language: system
       types: [python]
       args: [--max-line-length=88]
-      exclude: docs/*
+      exclude: {{ cookiecutter.package_name}}/migrations|docs
 -   repo: https://github.com/pre-commit/mirrors-mypy
     rev: v0.770
     hooks:
     - id: mypy
       name: mypy
-      entry: mypy
+      entry: poetry run mypy
       language: system
       types: [python]
-      exclude: docs/*
+      exclude: {{ cookiecutter.package_name}}/migrations|docs
 -   repo: https://github.com/pre-commit/mirrors-pylint
     rev: v2.4.4
     hooks:
     - id: pylint
       name: pylint
-      entry: pylint
+      entry: poetry run pylint
       language: system
       types: [python]
-      exclude: docs/*
+      exclude: {{ cookiecutter.package_name}}/migrations|docs
 -   repo: local
     hooks:
     - id: pytest
       name: pytest
       language: system
-      entry: nox --session tests
+      entry: poetry run nox --session tests
       types: [python]
       stages: [push]
       pass_filenames: false
     - id: linter
       name: linter
       language: system
-      entry: nox --session cop
+      entry: poetry run nox --session cop
       types: [python]
       stages: [push]
       pass_filenames: false
     - id: bandit
       name: bandit
       language: system
-      entry: nox --session bandit
+      entry: poetry run nox --session bandit
       types: [python]
       stages: [push]
       pass_filenames: false
