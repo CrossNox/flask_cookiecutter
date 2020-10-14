@@ -118,6 +118,9 @@ This workflow runs linters and tests.
 
 # Documentation
 
+## Swagger
+You can visit the swagger docs at `127.0.0.1:5000`.
+
 ## Whole project class diagram
 ![project_classes](docs/images/project_classes.png)
 
