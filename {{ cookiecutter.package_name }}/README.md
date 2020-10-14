@@ -4,7 +4,7 @@
 {{ cookiecutter.description }}
 
 # Installing the project
-This project was built with [poetry](https://python-poetry.org) in mind as the means to manage dependencies. You can follow their [https://python-poetry.org/docs/#installation](install guide) to install it.
+This project was built with [poetry](https://python-poetry.org) in mind as the means to manage dependencies. You can follow their [install guide](https://python-poetry.org/docs/#installation) to install it.
 
 Having poetry installed, the following command will install the project into a new environment.
 
