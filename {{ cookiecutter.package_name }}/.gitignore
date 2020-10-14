@@ -143,3 +143,6 @@ Pipfile*
 
 ### Vim ###
 **/*.swp
+
+### SQLite ###
+#*.db

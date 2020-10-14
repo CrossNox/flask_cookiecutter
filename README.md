@@ -26,51 +26,58 @@ Or you can point to your local clone of the repo.
 git init
 ```
 
+## Install the package
+```bash
+poetry install
+```
+
 ## Install pre-commmit hooks
 ```bash
-pre-commit install
-pre-commit install -t pre-push
+poetry run pre-commit install
+poetry run pre-commit install -t pre-push
 ```
 
 ## Add some model
 In `models.py`:
 
 ```python
-class TodoSimple(db.Model):
+class TodoSimple(db.Model):    
     id = db.Column(db.Integer, primary_key=True)
     reminder = db.Column(db.String)
 ```
 
 ## Add initial migration
 ```bash
-poetry run package_name/manage.py db migrate -m "add todo model"
+poetry poetry run package_name/manage.py db migrate -m "add todo model"
 ```
 
 ## Add some resources!
 In `api.py`:
 
 ```python
+from flask_restx import Api, Resource, reqparse, fields
+from cc_playground.models import db, TodoSimple
 
-todo_model = api.model('ToDo', {
-    "reminder": fields.String
-})
+
+todo_model = api.model('ToDo', {"reminder": fields.String})
+
 
 @api.route('/todo/<int:todo_id>')
-class TodoSimpleResource(Resource):
-    @api.marshall_with(todo_model, envelope='resource')
-    def get(self, todo_id):
+class TodoSimpleResource(Resource): 
+    @api.marshal_with(todo_model, envelope='resource')
+    def get(self, todo_id):    
         todo = TodoSimple.query.filter(TodoSimple.id == todo_id).first()
-        return todo
-
-    @api.marshall_with(todo_model, envelope='resource')
-    def put(self, todo_id):
+        return todo            
+    
+    @api.marshal_with(todo_model, envelope='resource')
+    def put(self, todo_id):    
         parser = reqparse.RequestParser()
         parser.add_argument('reminder', type=str, help='reminder description')
         args = parser.parse_args(strict=True)
-        reminder = args.reminder
+        reminder = args.reminder        
         new_todo = TodoSimple(id=todo_id, reminder=reminder)
-        db.session.add(new_todo)
-        db.session.commit()
+        db.session.add(new_todo)        
+        db.session.commit()    
         return new_todo
 ```
 

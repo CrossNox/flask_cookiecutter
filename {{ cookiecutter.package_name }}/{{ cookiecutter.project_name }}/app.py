@@ -1,4 +1,6 @@
 """Flask api."""
+from pathlib import Path
+
 from flask import Flask
 from flask_migrate import Migrate
 
@@ -16,5 +18,5 @@ def create_app():
     new_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(new_app)
     api.init_app(new_app)
-    Migrate(new_app, db)
+    Migrate(new_app, db, directory=Path(__file__).parent / "migrations")
     return new_app

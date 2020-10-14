@@ -5,5 +5,5 @@
     "author_email": "FIUBA email",
     "description": "Short description of the project.",
     "github_user": "7552-2020C2-grupo5",
-    "repo": "{{coookiecutter.package_name}}"
+    "github_repo": "{{cookiecutter.package_name}}"
 }

@@ -38,6 +38,8 @@ Check the full [poetry](https://python-poetry.org) docs, but here goes a quick r
 poetry add <dependency> [--dev]
 ```
 
+*Always* remember to commit changes to `poetry.lock`!
+
 ## Bumping SemVer version
 We use [SemVer](https://semver.org). To keep things easy, dev dependencies include [bump](https://pypi.org/project/bump/) . Running `bump` will bump the minor version.
 

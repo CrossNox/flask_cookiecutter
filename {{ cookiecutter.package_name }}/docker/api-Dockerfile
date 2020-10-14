@@ -1,6 +1,8 @@
 FROM python:3.7.7-stretch
 RUN apt-get update && apt-get install -y postgresql-client
 RUN pip install poetry
+WORKDIR /app
+COPY . .
 RUN poetry install
-RUN pip install gunicorn
-CMD docker/wait-for-postgres.sh && python {{cookiecutter.package_name}}/manage.py db_create && python {{cookiecutter.package_name}}/manage.py db upgrade && gunicorn -w 2 --bind 0.0.0.0:5000 "{{cookiecutter.package_name}}.api.app:create_app()"
+RUN poetry run pip install gunicorn
+CMD docker/wait-for-postgres.sh && poetry run python cc_playground/manage.py db_create && poetry run python cc_playground/manage.py db upgrade && poetry run gunicorn -w 2 --bind 0.0.0.0:5000 "cc_playground.app:create_app()"

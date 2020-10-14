@@ -4,7 +4,7 @@ from flask_migrate import MigrateCommand
 from flask_script import Command, Manager
 from sqlalchemy_utils.functions import create_database, database_exists, drop_database
 
-from {{cookiecutter.package_name}}.api.app import create_app
+from {{cookiecutter.package_name}}.app import create_app
 
 
 class CreateDB(Command):
@@ -37,7 +37,7 @@ class DropDB(Command):
 
 def main():
     """Entrypoint for main."""
-    app = create_app(offline=True)
+    app = create_app()
     manager = Manager(app)
     manager.add_command('db', MigrateCommand)
     manager.add_command('db_create', CreateDB(app))
