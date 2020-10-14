@@ -61,23 +61,37 @@ from package_name.models import db, TodoSimple
 
 todo_model = api.model('ToDo', {"reminder": fields.String})
 
+@api.route('/todo')
+class TodoListResource(Resource):
+    @api.doc('list_todo')
+    @api.marshal_list_with(todo_model)
+    def get(self):
+        """Get all ToDos."""
+        return TodoSimple.query.all()
+
 
 @api.route('/todo/<int:todo_id>')
-class TodoSimpleResource(Resource): 
+@api.param('todo', 'The ToDo identifier')
+@api.response(404, 'ToDo not found')
+class TodoSimpleResource(Resource):
+    @api.doc('get_todo')
     @api.marshal_with(todo_model, envelope='resource')
-    def get(self, todo_id):    
+    def get(self, todo_id):        
+	"""Get a ToDo by id."""
         todo = TodoSimple.query.filter(TodoSimple.id == todo_id).first()
-        return todo            
-    
+        return todo
+
+    @api.doc('create_todo')
     @api.marshal_with(todo_model, envelope='resource')
-    def put(self, todo_id):    
+    def put(self, todo_id):
+        """Create a new ToDo."""
         parser = reqparse.RequestParser()
         parser.add_argument('reminder', type=str, help='reminder description')
         args = parser.parse_args(strict=True)
-        reminder = args.reminder        
+        reminder = args.reminder
         new_todo = TodoSimple(id=todo_id, reminder=reminder)
-        db.session.add(new_todo)        
-        db.session.commit()    
+        db.session.add(new_todo)
+        db.session.commit()
         return new_todo
 ```
 
@@ -95,7 +109,11 @@ If you've followed this example, you can test it with
 import requests as r
 print(r.put('http://localhost:5000/v1/todo/1', data={'reminder': 'Remember the eggs'}).json())
 print(r.get('http://localhost:5000/v1/todo/1').json())
+print(r.get('http://localhost:5000/v1/todo').json())
 ```
+
+## Swagger
+You should be able to visit the swagger docs on `http://127.0.0.1:5000`.
 
 # Components
 
