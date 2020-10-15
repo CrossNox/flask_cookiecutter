@@ -107,8 +107,10 @@ docker-compose up
 # Deploy to heroku
 You will need to have the [heroku cli](https://devcenter.heroku.com/articles/heroku-cli) installed and correctly configured for the following steps.
 
+Prior to the actual deploy, **make sure to commit your changes**.
+
 ```bash
-heroku create {{cookiecutter.author_name.lower().replace(' ','-')}}-{{cookiecutter.package_name}}
+heroku create {{cookiecutter.package_name}}
 heroku addons:create heroku-postgresql:hobby-dev
 heroku stack:set container
 git push heroku master

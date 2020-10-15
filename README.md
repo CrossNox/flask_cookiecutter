@@ -41,7 +41,7 @@ poetry run pre-commit install -t pre-push
 In `models.py`:
 
 ```python
-class TodoSimple(db.Model):    
+class TodoSimple(db.Model):  # type:ignore 
     id = db.Column(db.Integer, primary_key=True)
     reminder = db.Column(db.String)
 ```
