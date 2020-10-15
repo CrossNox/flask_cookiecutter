@@ -1,8 +1,0 @@
-FROM python:3.7.7-stretch
-RUN apt-get update && apt-get install -y postgresql-client
-RUN pip install poetry
-WORKDIR /app
-COPY . .
-RUN poetry install
-RUN poetry run pip install gunicorn
-CMD docker/wait-for-postgres.sh && poetry run python {{cookiecutter.package_name}}/manage.py db_create && poetry run python {{cookiecutter.package_name}}/manage.py db upgrade && poetry run gunicorn -w 2 --bind 0.0.0.0:5000 "{{cookiecutter.package_name}}.app:create_app()"

@@ -96,19 +96,37 @@ We use the [pytest framework](https://docs.pytest.org/en/latest/) to test {{cook
 
 # Docker
 
-Build main image.
-
-```bash
-cd docker
-docker build . -t {{ cookiecutter.project_name }}
-```
-
 Get everything up and running.
 
 ```bash
+cd docker-compose
 docker-compose build
 docker-compose up
 ```
+
+# Deploy to heroku
+You will need to have the [heroku cli](https://devcenter.heroku.com/articles/heroku-cli) installed and correctly configured for the following steps.
+
+```bash
+heroku create {{cookiecutter.author_name.lower().replace(' ','-')}}-{{cookiecutter.package_name}}
+heroku addons:create heroku-postgresql:hobby-dev
+heroku stack:set container
+git push heroku master
+```
+
+1. The first step [initializes](https://devcenter.heroku.com/articles/creating-apps) a new heroku app
+2. The second step provisions a [postgres addon](https://www.heroku.com/postgres)
+3. The third step sets the app to use [a docker image](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml). Instead of using a [Procfile](https://devcenter.heroku.com/articles/procfile), we will use a `heroku.yml`. Heroku does not yet support a [poetry buildpack](https://github.com/python-poetry/poetry/issues/403) and exporting a `requirements.txt` from poetry is pretty cumbersome.
+4. Deploy 🚀
+
+## Diagnosing errors
+You can fetch logs from the app using `heroku logs --tail`.
+
+## CD
+Go to the app on the [Heroku Dashboard](https://dashboard.heroku.com). On the deploy tab, select "Connect to github" under the "Deployment method" section. Select your repo and you're good to go. Pushes to master will deploy a new version.
+
+## Is the app running?
+Free dynos sleep after [30 min](https://devcenter.heroku.com/articles/free-dyno-hours#dyno-sleeping) if no incoming web traffic is received. It might take a while, but you should be able to see the app's swagger the root URL. Use the "Open App" button on the dashboard.
 
 # GitHub Actions
 A few pipelines have been set to run on github actions to ensure code quality.

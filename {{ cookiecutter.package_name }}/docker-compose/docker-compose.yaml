@@ -21,10 +21,11 @@ services:
         - postgres
       build:
         context: ../
-        dockerfile: docker/api-Dockerfile
+        dockerfile: Dockerfile
       volumes:
         - ../:/app
       ports:
         - "5000:5000"
       environment:
         - DATABASE_URL=postgres://{{cookiecutter.package_name}}:{{cookiecutter.package_name}}@postgres/{{cookiecutter.package_name}}
+      command: docker-compose/wait-for-postgres.sh && poetry run python {{cookiecutter.package_name}}/manage.py db_create && poetry run python {{cookiecutter.package_name}}/manage.py db upgrade && poetry run gunicorn -w 2 --bind 0.0.0.0:5000 "{{cookiecutter.package_name}}.app:create_app()"

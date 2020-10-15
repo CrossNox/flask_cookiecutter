@@ -48,7 +48,7 @@ class TodoSimple(db.Model):
 
 ## Add initial migration
 ```bash
-poetry poetry run python package_name/manage.py db migrate -m "add todo model"
+poetry run python package_name/manage.py db migrate -m "add todo model"
 ```
 
 ## Add some resources!
@@ -76,8 +76,8 @@ class TodoListResource(Resource):
 class TodoSimpleResource(Resource):
     @api.doc('get_todo')
     @api.marshal_with(todo_model, envelope='resource')
-    def get(self, todo_id):        
-	"""Get a ToDo by id."""
+    def get(self, todo_id): 
+        """Get a ToDo by id."""
         todo = TodoSimple.query.filter(TodoSimple.id == todo_id).first()
         return todo
 
@@ -97,7 +97,7 @@ class TodoSimpleResource(Resource):
 
 ## Start docker
 ```bash
-cd docker
+cd docker-compose
 docker-compose build
 docker-compose up
 ```
@@ -114,6 +114,9 @@ print(r.get('http://localhost:5000/v1/todo').json())
 
 ## Swagger
 You should be able to visit the swagger docs on `http://127.0.0.1:5000`.
+
+## Heroku
+Check the heroku section on the generated README.
 
 # Components
 
