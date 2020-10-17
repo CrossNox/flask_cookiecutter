@@ -41,10 +41,10 @@ poetry add <dependency> [--dev]
 *Always* remember to commit changes to `poetry.lock`!
 
 ## Bumping SemVer version
-We use [SemVer](https://semver.org). To keep things easy, dev dependencies include [bump](https://pypi.org/project/bump/) . Running `bump` will bump the minor version.
+We use [SemVer](https://semver.org). To keep things easy, dev dependencies include [bump2version](https://pypi.org/project/bump2version/) . Running `poetry run bump2version minor` will bump the minor version.
 
 ```bash
-bump < --major|--minor|--patch >
+poetry run bump2version <part>
 ```
 
 ## Running nox sessions
