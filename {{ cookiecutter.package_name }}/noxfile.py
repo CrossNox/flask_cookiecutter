@@ -9,7 +9,7 @@ def tests(session):
     session.install("poetry")
     session.run("poetry", "install", "-E", "testing")
 
-    cmd = ["pytest", "-n", "auto"]
+    cmd = ["poetry", "run", "pytest", "-n", "auto"]
 
     if session.posargs:
         cmd.extend(session.posargs)
@@ -23,8 +23,10 @@ def cop(session):
     session.install("poetry")
     session.run("poetry", "install")
 
-    session.run("pre-commit", "install")
-    session.run("pre-commit", "run", "--show-diff-on-failure", "--all-files")
+    session.run("poetry", "run", "pre-commit", "install")
+    session.run(
+        "poetry", "run", "pre-commit", "run", "--show-diff-on-failure", "--all-files"
+    )
 
 
 @nox.session(reuse_venv=True)
@@ -33,7 +35,16 @@ def bandit(session):
     session.install("poetry")
     session.run("poetry", "install")
 
-    session.run("bandit", "-r", "{{cookiecutter.package_name}}/", "-ll", "-c", "bandit.yaml")
+    session.run(
+        "poetry",
+        "run",
+        "bandit",
+        "-r",
+        "{{cookiecutter.package_name}}/",
+        "-ll",
+        "-c",
+        "bandit.yaml",
+    )
 
 
 @nox.session(reuse_venv=True)
@@ -43,7 +54,9 @@ def pyreverse(session):
     session.run("poetry", "install")
 
     # TODO: create smaller diagrams with portions of the project.
-    session.run("pyreverse", "{{cookiecutter.project_name}}", "-o", "png")
+    session.run(
+        "poetry", "run", "pyreverse", "{{cookiecutter.project_name}}", "-o", "png"
+    )
 
     session.run(
         "mv", "packages.png", "docs/images/packages_dependencies.png", external=True
