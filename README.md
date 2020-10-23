@@ -103,7 +103,7 @@ If you've followed this example, you can test it with
 
 ```python
 import requests as r
-print(r.put('http://localhost:5000/v1/todo/1', data={'reminder': 'Remember the eggs'}).json())
+print(r.put('http://localhost:5000/v1/todo/1', json={'reminder': 'Remember the eggs'}).json())
 print(r.get('http://localhost:5000/v1/todo/1').json())
 print(r.get('http://localhost:5000/v1/todo').json())
 ```
