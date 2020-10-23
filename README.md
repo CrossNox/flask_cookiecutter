@@ -59,7 +59,7 @@ from flask_restx import Api, Resource, reqparse, fields
 from package_name.models import db, TodoSimple
 
 
-todo_model = api.model('ToDo', {"reminder": fields.String})
+todo_model = api.model('ToDo', {"id": fields.String(readonly=True, description="The unique identifier of the task"), "reminder": fields.String(required=True, description="What you want to remember.")})
 
 @api.route('/todo')
 class TodoListResource(Resource):
@@ -69,9 +69,18 @@ class TodoListResource(Resource):
         """Get all ToDos."""
         return TodoSimple.query.all()
 
+    @api.doc('create_todo')
+    @api.expect(todo_model)
+    @api.marshal_with(todo_model, envelope='resource')
+    def post(self):
+        """Create a new ToDo."""
+        new_todo = TodoSimple(**api.payload)
+        db.session.add(new_todo)
+        db.session.commit()
+        return new_todo
 
 @api.route('/todo/<int:todo_id>')
-@api.param('todo', 'The ToDo identifier')
+@api.param('todo_id', 'The ToDo unique identifier')
 @api.response(404, 'ToDo not found')
 class TodoSimpleResource(Resource):
     @api.doc('get_todo')
@@ -80,19 +89,6 @@ class TodoSimpleResource(Resource):
         """Get a ToDo by id."""
         todo = TodoSimple.query.filter(TodoSimple.id == todo_id).first()
         return todo
-
-    @api.doc('create_todo')
-    @api.marshal_with(todo_model, envelope='resource')
-    def put(self, todo_id):
-        """Create a new ToDo."""
-        parser = reqparse.RequestParser()
-        parser.add_argument('reminder', type=str, help='reminder description')
-        args = parser.parse_args(strict=True)
-        reminder = args.reminder
-        new_todo = TodoSimple(id=todo_id, reminder=reminder)
-        db.session.add(new_todo)
-        db.session.commit()
-        return new_todo
 ```
 
 ## Start docker

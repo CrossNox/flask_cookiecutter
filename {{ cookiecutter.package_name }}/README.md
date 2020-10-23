@@ -104,6 +104,14 @@ docker-compose build
 docker-compose up
 ```
 
+# Running locally
+First make sure you have the db up to date, and then run locally.
+
+```bash
+poetry run python {{cookiecutter.package_name}}/manage.py db upgrade
+FLASK_APP={{cookiecutter.package_name}}/app.py poetry run flask run
+```
+
 # Deploy to heroku
 You will need to have the [heroku cli](https://devcenter.heroku.com/articles/heroku-cli) installed and correctly configured for the following steps.
 
