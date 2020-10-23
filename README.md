@@ -70,7 +70,7 @@ class TodoListResource(Resource):
         return TodoSimple.query.all()
 
     @api.doc('create_todo')
-    @api.expect(todo_model)
+    @api.expect(todo_model, validate=True)
     @api.marshal_with(todo_model, envelope='resource')
     def post(self):
         """Create a new ToDo."""
@@ -103,7 +103,7 @@ If you've followed this example, you can test it with
 
 ```python
 import requests as r
-print(r.put('http://localhost:5000/v1/todo/1', json={'reminder': 'Remember the eggs'}).json())
+print(r.post('http://localhost:5000/v1/todo', json={'reminder': 'Remember the eggs'}).json())
 print(r.get('http://localhost:5000/v1/todo/1').json())
 print(r.get('http://localhost:5000/v1/todo').json())
 ```
