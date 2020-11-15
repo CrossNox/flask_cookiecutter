@@ -3,6 +3,7 @@ from pathlib import Path
 
 from flask import Flask
 from flask_migrate import Migrate
+from flask_cors import CORS
 
 from {{cookiecutter.package_name}}.api import api
 from {{cookiecutter.package_name}}.cfg import config
@@ -37,4 +38,5 @@ def create_app():
         new_app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1
     )  # remove after flask-restx > 0.2.0 is released
     # https://github.com/python-restx/flask-restx/issues/230
+    CORS(new_app)
     return new_app
