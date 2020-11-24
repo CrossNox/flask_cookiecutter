@@ -52,28 +52,35 @@ In order to bootstrap dependencies and run several actions, we are using [nox](h
 
 To run all sessions,  
 ```bash
-nox
+poetry run nox
 ```
 
 To run tests session,  
 ```bash
-nox --sessions tests [-- pylint arguments]
+poetry run nox --sessions tests [-- pylint arguments]
 ```
 
 To run linting session,
 ```bash
-nox --sessions cop
+poetry run nox --sessions cop
 ```
 
 To run bandit session,  
 ```bash
-nox --sessions bandit
+poetry run nox --sessions bandit
 ```
 
 To run pyreverse session,
 ```bash
-nox --sessions pyreverse
+poetry run nox --sessions pyreverse
 ```
+
+## Adding new migrations
+```bash
+poetry run python {{cookiecutter.project_name}}/manage.py db migrate -m "migration message"
+```
+
+Remember to review them after creating them.
 
 ## Style guide
 {{cookiecutter.project_name}} follows [PEP8](https://www.python.org/dev/peps/pep-0008/).
