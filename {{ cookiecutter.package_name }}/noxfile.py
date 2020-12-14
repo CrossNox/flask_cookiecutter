@@ -55,7 +55,7 @@ def pyreverse(session):
 
     # TODO: create smaller diagrams with portions of the project.
     session.run(
-        "poetry", "run", "pyreverse", "{{cookiecutter.project_name}}", "-o", "png"
+        "poetry", "run", "pyreverse", "{{cookiecutter.package_name}}", "-o", "png"
     )
 
     session.run(
