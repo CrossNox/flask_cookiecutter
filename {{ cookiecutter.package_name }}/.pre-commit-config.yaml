@@ -1,45 +1,48 @@
 repos:
--   repo: https://github.com/psf/black
-    rev: 19.10b0
+-   repo: local
     hooks:
+    - id: isort
+      name: isort
+      entry: poetry run isort
+      language: system
+      types: [python]
+      stages: [commit]
     - id: black
       name: black
       entry: poetry run black
       language: system
       types: [python]
+      stages: [commit]
       args: [--skip-string-normalization]
-      exclude: {{ cookiecutter.package_name}}/migrations|docs
--   repo: git://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
-    hooks:
-    - id: trailing-whitespace
-    - id: requirements-txt-fixer
+      exclude: publications_microservice/migrations|docs
     - id: flake8
       name: flake8
       entry: poetry run flake8
       language: system
       types: [python]
+      stages: [commit]
       args: [--max-line-length=88]
-      exclude: {{ cookiecutter.package_name}}/migrations|docs
--   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.770
-    hooks:
+      exclude: publications_microservice/migrations|docs
     - id: mypy
       name: mypy
       entry: poetry run mypy
       language: system
       types: [python]
-      exclude: {{ cookiecutter.package_name}}/migrations|docs
--   repo: https://github.com/pre-commit/mirrors-pylint
-    rev: v2.4.4
-    hooks:
+      stages: [commit]
+      exclude: publications_microservice/migrations|docs
     - id: pylint
       name: pylint
       entry: poetry run pylint
       language: system
-      types: [python]   
+      types: [python]
+      stages: [commit]
       args: [--load-plugins, pylint_flask_sqlalchemy]
-      exclude: {{ cookiecutter.package_name}}/migrations|docs
+      exclude: publications_microservice/migrations|docs
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    rev: v2.5.0
+    hooks:
+    - id: trailing-whitespace
+    - id: requirements-txt-fixer
 -   repo: local
     hooks:
     - id: pytest
