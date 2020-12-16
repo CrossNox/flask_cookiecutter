@@ -24,7 +24,7 @@ jobs:
         python-version: 3.7
     - name: Install dependencies
       run: pip install nox
-    - name: Run cop session
+    - name: Run tests session
       run: nox --sessions tests
   bandit:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
         python-version: 3.7
     - name: Install dependencies
       run: pip install nox
-    - name: Run cop session
+    - name: Run bandit session
       run: nox --sessions bandit
 
 
