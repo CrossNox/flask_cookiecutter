@@ -7,6 +7,7 @@ repos:
       language: system
       types: [python]
       stages: [commit]
+      exclude: {{ cookiecutter.package_name}}/migrations|docs
     - id: black
       name: black
       entry: poetry run black
@@ -14,7 +15,7 @@ repos:
       types: [python]
       stages: [commit]
       args: [--skip-string-normalization]
-      exclude: publications_microservice/migrations|docs
+      exclude: {{ cookiecutter.package_name}}/migrations|docs
     - id: flake8
       name: flake8
       entry: poetry run flake8
@@ -22,14 +23,14 @@ repos:
       types: [python]
       stages: [commit]
       args: [--max-line-length=88]
-      exclude: publications_microservice/migrations|docs
+      exclude: {{ cookiecutter.package_name}}/migrations|docs
     - id: mypy
       name: mypy
       entry: poetry run mypy
       language: system
       types: [python]
       stages: [commit]
-      exclude: publications_microservice/migrations|docs
+      exclude: {{ cookiecutter.package_name}}/migrations|docs
     - id: pylint
       name: pylint
       entry: poetry run pylint
@@ -37,7 +38,7 @@ repos:
       types: [python]
       stages: [commit]
       args: [--load-plugins, pylint_flask_sqlalchemy]
-      exclude: publications_microservice/migrations|docs
+      exclude: {{ cookiecutter.package_name}}/migrations|docs
 -   repo: git://github.com/pre-commit/pre-commit-hooks
     rev: v2.5.0
     hooks:
