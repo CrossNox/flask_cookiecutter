@@ -107,8 +107,7 @@ Get everything up and running.
 
 ```bash
 cd docker-compose
-docker-compose build
-docker-compose up
+docker-compose up --build
 ```
 
 # Running locally
