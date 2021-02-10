@@ -26,5 +26,5 @@ services:
       ports:
         - "5000:5000"
       environment:
-        - DATABASE_URL=postgres://{{cookiecutter.package_name}}:{{cookiecutter.package_name}}@postgres/{{cookiecutter.package_name}}
+        - DATABASE_URL=postgres://{{cookiecutter.package_name}}:{{cookiecutter.package_name}}@{{cookiecutter.package_name}}_postgres/{{cookiecutter.package_name}}
       entrypoint: /app/docker-compose/api-entrypoint.sh
