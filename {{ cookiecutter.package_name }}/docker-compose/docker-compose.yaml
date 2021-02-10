@@ -19,7 +19,7 @@ services:
     {{cookiecutter.package_name}}_api:
       container_name: {{cookiecutter.package_name}}_api
       depends_on:
-        - postgres
+        - {{cookiecutter.package_name}}_postgres
       build:
         context: ../
         dockerfile: Dockerfile
