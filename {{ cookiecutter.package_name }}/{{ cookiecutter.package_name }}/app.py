@@ -25,9 +25,8 @@ def fix_dialect(s):
 def create_app(test_db=None):
     """creates a new app instance"""
     new_app = Flask(__name__)
-    default_db = test_db or "{{cookiecutter.package_name}}.db"
     new_app.config["SQLALCHEMY_DATABASE_URI"] = config.database.url(
-        default=f"sqlite:///{default_db}", cast=fix_dialect
+        default=test_db or "sqlite:///{{cookiecutter.package_name}}.db", cast=fix_dialect
     )
     new_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     new_app.config["ERROR_404_HELP"] = False
