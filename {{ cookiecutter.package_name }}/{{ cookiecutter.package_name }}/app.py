@@ -1,17 +1,15 @@
 """Flask api."""
+import logging
 from pathlib import Path
 
 from flask import Flask
 from flask_migrate import Migrate
-from flask_cors import CORS
+from werkzeug.middleware.proxy_fix import ProxyFix
 
+from flask_cors import CORS
 from {{cookiecutter.package_name}}.api import api
 from {{cookiecutter.package_name}}.cfg import config
 from {{cookiecutter.package_name}}.models import db
-
-from werkzeug.middleware.proxy_fix import ProxyFix
-
-import logging
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -24,13 +22,15 @@ def fix_dialect(s):
     return s
 
 
-def create_app():
+def create_app(test_db=None):
     """creates a new app instance"""
     new_app = Flask(__name__)
+    default_db = test_db or "{{cookiecutter.package_name}}.db"
     new_app.config["SQLALCHEMY_DATABASE_URI"] = config.database.url(
-        default="sqlite:///{{cookiecutter.package_name}}.db", cast=fix_dialect
+        default=f"sqlite:///{default_db}", cast=fix_dialect
     )
     new_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    new_app.config["ERROR_404_HELP"] = False
     db.init_app(new_app)
     api.init_app(new_app)
     Migrate(new_app, db, directory=Path(__file__).parent / "migrations")
