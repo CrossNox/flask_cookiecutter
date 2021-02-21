@@ -12,11 +12,27 @@ class FilterParam:
         schema="int",
         transform=None,
         format_=None,
+        attribute=None,
         default=None,
     ):
+        """Filter by operation.
+
+        Parameters
+        ----------
+        name: Name for the filter.
+        op: Operation to filter with.
+        _in: Where the parameter is located.
+        schema: The type for swagger documentation.
+        transform: Pre-transform val.
+        format_: Format for swagger.
+        attribute: If none, uses name. The attribute to filter on.
+        default: Default value.
+        """
+
         self.name = name
         self.op = op
         self.val = None
+        self.attribute = attribute or self.name
         self.__schema__ = {"name": name, "in": _in, "type": schema, "format": format_}
         self.transform = transform
         self.default = default
@@ -26,7 +42,7 @@ class FilterParam:
 
     def __call__(self, val=None):
         if not self.default and not val:
-            raise ValueError("Should provide either val or default value")
+            raise ValueError("Should provide val or default value")
         self.val = (self.transform or self.identity)(val or self.default)
         return self
 
@@ -40,9 +56,6 @@ class FilterParam:
                 )
             )
         return query.filter(self.op(getattr(model, self.attribute), self.val))
-
-    def apply(self, query, model):
-        return query.filter(self.op(getattr(model, self.name), self.val))
 
     def __repr__(self):
         return f"filter {self.name} by {self.op}"
