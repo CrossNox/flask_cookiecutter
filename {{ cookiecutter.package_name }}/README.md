@@ -50,12 +50,12 @@ poetry run bump2version <part>
 ## Running nox sessions
 In order to bootstrap dependencies and run several actions, we are using [nox](https://nox.thea.codes/en/stable/). This way, dependencies are isolated and you get environment replicability.
 
-To run all sessions,  
+To run all sessions,
 ```bash
 poetry run nox
 ```
 
-To run tests session,  
+To run tests session,
 ```bash
 poetry run nox --sessions tests [-- pylint arguments]
 ```
@@ -65,7 +65,7 @@ To run linting session,
 poetry run nox --sessions cop
 ```
 
-To run bandit session,  
+To run bandit session,
 ```bash
 poetry run nox --sessions bandit
 ```
@@ -157,4 +157,3 @@ You can visit the swagger docs at `127.0.0.1:5000`.
 
 ## Whole project class diagram
 ![project_classes](docs/images/project_classes.png)
-

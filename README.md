@@ -41,7 +41,7 @@ poetry run pre-commit install -t pre-push
 In `models.py`:
 
 ```python
-class TodoSimple(db.Model):  # type:ignore 
+class TodoSimple(db.Model):  # type:ignore
     id = db.Column(db.Integer, primary_key=True)
     reminder = db.Column(db.String)
 ```
@@ -52,44 +52,97 @@ poetry run python package_name/manage.py db migrate -m "add todo model"
 ```
 
 ## Add some resources!
-In `api.py`:
+Create file `namespaces/todo/__init__/.py` with the following content:
+```python
+from .namespace import ns
+```
+
+Create `namespaces/todo/namespace.py` with the following content:
 
 ```python
-from flask_restx import Api, Resource, reqparse, fields
-from package_name.models import db, TodoSimple
+"""ToDo namespace module."""
+
+from flask_restx import Namespace, Resource
+
+from package_name.models import TodoSimple, db
+
+from .models import todo_model
+
+ns = Namespace("ToDo", description="ToDo operations")
+
+ns.models[todo_model.name] = todo_model
 
 
-todo_model = api.model('ToDo', {"id": fields.String(readonly=True, description="The unique identifier of the task"), "reminder": fields.String(required=True, description="What you want to remember.")})
-
-@api.route('/todo')
+@ns.route('/todo')
 class TodoListResource(Resource):
-    @api.doc('list_todo')
-    @api.marshal_list_with(todo_model)
+    @ns.doc('list_todo')
+    @ns.marshal_list_with(todo_model)
     def get(self):
         """Get all ToDos."""
         return TodoSimple.query.all()
 
-    @api.doc('create_todo')
-    @api.expect(todo_model, validate=True)
-    @api.marshal_with(todo_model, envelope='resource')
+    @ns.doc('create_todo')
+    @ns.expect(todo_model)
+    @ns.marshal_with(todo_model, envelope='resource')
     def post(self):
         """Create a new ToDo."""
-        new_todo = TodoSimple(**api.payload)
+        new_todo = TodoSimple(**ns.payload)
         db.session.add(new_todo)
         db.session.commit()
         return new_todo
 
-@api.route('/todo/<int:todo_id>')
-@api.param('todo_id', 'The ToDo unique identifier')
-@api.response(404, 'ToDo not found')
+
+@ns.route('/todo/<int:todo_id>')
+@ns.param('todo_id', 'The ToDo unique identifier')
+@ns.response(404, 'ToDo not found')
 class TodoSimpleResource(Resource):
-    @api.doc('get_todo')
-    @api.marshal_with(todo_model, envelope='resource')
-    def get(self, todo_id): 
+    @ns.doc('get_todo')
+    @ns.marshal_with(todo_model)
+    def get(self, todo_id):
         """Get a ToDo by id."""
         todo = TodoSimple.query.filter(TodoSimple.id == todo_id).first()
         return todo
 ```
+
+Create `namespaces/todo/models.py` with the following:
+
+```python
+"""ToDo namespace models module."""
+
+from flask_restx import Model, fields
+
+todo_model = Model(
+    'ToDo',
+    {
+        "id": fields.String(
+            readonly=True, description="The unique identifier of the task"
+        ),
+        "reminder": fields.String(
+            required=True, description="What you want to remember."
+        ),
+    },
+)
+```
+
+Add the following line in ```namespaces/__init__.py```:
+
+```python
+from .todo import ns as todo_namespace
+```
+
+And lastly, in ```api.py```:
+
+```python
+from package_name.namespaces import todo_namespace
+```
+
+And add the namespace to the api:
+```python
+api.add_namespace(default_namespace, path='/todo')
+```
+
+## Tests
+I'll leave this to you :P
 
 ## Start docker
 ```bash
@@ -149,9 +202,7 @@ You can set several hooks to be run on `pre-commit` or `push` events, say linter
 [poetry](https://python-poetry.org) is `python packaging and dependency management made easy`.
 
 ## GitHub Actions
-Let's go through the hassle of setting linting and testing jobs on github once and reuse it. 
+Let's go through the hassle of setting linting and testing jobs on github once and reuse it.
 
 ## Docker
 Minimal docker/podman config with postgres.
-
-

@@ -7,8 +7,8 @@ import tempfile
 # pylint:disable=redefined-outer-name,protected-access
 import pytest
 
-from {{cookiecutter.package_name}}.models import db
 from {{cookiecutter.package_name}}.app import create_app
+from {{cookiecutter.package_name}}.models import db
 
 logger = logging.getLogger(__name__)
 
@@ -30,3 +30,15 @@ def client():
 def test_root(client):
     response = client.get("/")
     assert response._status_code == 200
+
+
+def test_hello(client):
+    response = client.get("/v1/hello")
+    assert response._status_code == 200
+    assert json.loads(response.data).get("Say") == "Hello"
+
+
+def test_echo(client):
+    response = client.post("/v1/hello", json={"message": "Say hi"})
+    assert response._status_code == 200
+    assert json.loads(response.data).get("Echo") == "Say hi"
