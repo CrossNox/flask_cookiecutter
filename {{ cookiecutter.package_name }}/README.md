@@ -157,3 +157,6 @@ You can visit the swagger docs at `127.0.0.1:5000`.
 
 ## Whole project class diagram
 ![project_classes](docs/images/project_classes.png)
+
+## Packages
+![packages](docs/images/packages_dependencies.png)

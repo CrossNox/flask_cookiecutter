@@ -51,7 +51,6 @@ def bandit(session):
 def pyreverse(session):
     """Create class diagrams."""
     session.install("poetry")
-    session.run("poetry", "install")
 
     # TODO: create smaller diagrams with portions of the project.
     session.run(
