@@ -124,7 +124,7 @@ You will need to have the [heroku cli](https://devcenter.heroku.com/articles/her
 Prior to the actual deploy, **make sure to commit your changes**.
 
 ```bash
-heroku create {{cookiecutter.package_name}}
+heroku create {{cookiecutter.package_name | replace("_", "-") }}
 heroku addons:create heroku-postgresql:hobby-dev
 heroku stack:set container
 git push heroku master
@@ -152,8 +152,9 @@ Remember to set the following config vars:
 ```bash
 heroku config:set DD_API_KEY=<your_api_key>
 heroku config:set DD_DYNO_HOST=false
-heroku config:set HEROKU_APP_NAME=<the_app_name>
+heroku config:set HEROKU_APP_NAME={{cookiecutter.package_name | replace("_", "-") }}
 heroku config:set DD_TAGS=service:{{cookiecutter.package_name}}
+```
 {% endif %}
 
 
