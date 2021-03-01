@@ -206,3 +206,6 @@ Let's go through the hassle of setting linting and testing jobs on github once a
 
 ## Docker
 Minimal docker/podman config with postgres.
+
+## [Optional] Datadog monitoring on heroku
+Heroku dockerfile will use datadog.
