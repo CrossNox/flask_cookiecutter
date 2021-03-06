@@ -1,5 +1,5 @@
 # {{ cookiecutter.project_name }}
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}?style=flat-square) ![Coverage](coverage-badge.svg)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}?style=flat-square) ![Coverage](coverage-badge.svg)[![Tests](https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}/actions/workflows/tests.yml/badge.svg)](https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}/actions/workflows/tests.yml)[![Linters](https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}/actions/workflows/linters.yml/badge.svg)](https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}/actions/workflows/linters.yml)[![Bandit](https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}/actions/workflows/bandit.yml/badge.svg)](https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}/actions/workflows/bandit.yml)
 
 {{ cookiecutter.description }}
 
@@ -134,6 +134,9 @@ git push heroku master
 2. The second step provisions a [postgres addon](https://www.heroku.com/postgres)
 3. The third step sets the app to use [a docker image](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml). Instead of using a [Procfile](https://devcenter.heroku.com/articles/procfile), we will use a `heroku.yml`. Heroku does not yet support a [poetry buildpack](https://github.com/python-poetry/poetry/issues/403) and exporting a `requirements.txt` from poetry is pretty cumbersome.
 4. Deploy 🚀
+
+## [Optional] Badge
+Add this badge to your readme: `![](https://heroku-badge.herokuapp.com/?app={{cookiecutter.package_name | replace("_", "-") }})`
 
 ## Diagnosing errors
 You can fetch logs from the app using `heroku logs --tail`.
