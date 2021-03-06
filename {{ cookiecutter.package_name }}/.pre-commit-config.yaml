@@ -67,3 +67,17 @@ repos:
       types: [python]
       stages: [push]
       pass_filenames: false
+    - id: pyreverse
+      name: pyreverse
+      language: system
+      entry: poetry run nox --session pyreverse
+      types: [python]
+      stages: [push]
+      pass_filenames: false
+    - id: cov-badge
+      name: cov-badge
+      language: system
+      entry: poetry run coverage-badge -o coverage-badge -f
+      types: [python]
+      stages: [push]
+      pass_filenames: false

@@ -1,5 +1,5 @@
 # {{ cookiecutter.project_name }}
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}?style=flat-square)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/{{cookiecutter.github_user}}/{{cookiecutter.github_repo}}?style=flat-square) ![Coverage](coverage-badge.svg)
 
 {{ cookiecutter.description }}
 
