@@ -99,7 +99,7 @@ We use either [numpy style](https://numpydoc.readthedocs.io/en/latest/format.htm
 - method/functions to explain what it does and what it's parameters are
 
 ## Testing
-We use the [pytest framework](https://docs.pytest.org/en/latest/) to test {{cookiecutter.project_name}}. The easiest way to run tests it through `nox` with `nox --sessions tests`.
+We use the [pytest framework](https://docs.pytest.org/en/latest/) to test {{cookiecutter.project_name}}. The easiest way to run tests it through `nox` with `poetry run nox --sessions tests`.
 
 # Docker
 
