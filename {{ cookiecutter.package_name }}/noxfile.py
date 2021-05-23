@@ -35,16 +35,7 @@ def bandit(session):
     session.install("poetry")
     session.run("poetry", "install")
 
-    session.run(
-        "poetry",
-        "run",
-        "bandit",
-        "-r",
-        "{{cookiecutter.package_name}}/",
-        "-ll",
-        "-c",
-        "bandit.yaml",
-    )
+    session.run("poetry", "run", "bandit", "-r", "{{cookiecutter.package_name}}/", "-ll", "-c", "bandit.yaml")
 
 
 @nox.session(reuse_venv=True)
@@ -53,9 +44,7 @@ def pyreverse(session):
     session.install("poetry")
 
     # TODO: create smaller diagrams with portions of the project.
-    session.run(
-        "poetry", "run", "pyreverse", "{{cookiecutter.package_name}}", "-o", "png"
-    )
+    session.run("poetry", "run", "pyreverse", "{{cookiecutter.package_name}}", "-o", "png")
 
     session.run(
         "mv", "packages.png", "docs/images/packages_dependencies.png", external=True

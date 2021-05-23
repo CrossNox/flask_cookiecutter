@@ -6,6 +6,7 @@ authors = ["{{cookiecutter.author_name}} <{{cookiecutter.author_email}}>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
+astroid = "<2.5"
 sqlalchemy = "<1.4.0"
 argparse = "^1.4.0"
 importlib-metadata = {version = "^1.0", python = "<3.8"}

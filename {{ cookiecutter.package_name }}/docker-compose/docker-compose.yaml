@@ -1,7 +1,7 @@
 version: '3.7'
 services:
     {{cookiecutter.package_name}}_postgres:
-        container_name: {{cookiecutter.package_name}}_postgres 
+        container_name: {{cookiecutter.package_name}}_postgres
         image: postgres:11.9
         environment:
           - POSTGRES_USER={{cookiecutter.package_name}}

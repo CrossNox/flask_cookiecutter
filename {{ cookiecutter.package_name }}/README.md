@@ -166,8 +166,14 @@ heroku config:set DD_TAGS=service:{{cookiecutter.package_name}}
 # GitHub Actions
 A few pipelines have been set to run on github actions to ensure code quality.
 
-## `sessions.yml`
-This workflow runs linters and tests.
+## `bandit.yml`
+This workflow runs bandit.
+
+## `linters.yml`
+Run linters and code quality checkers.
+
+## `tests.yml`
+Run tests to avoid regressions before merging.
 
 # Documentation
 
