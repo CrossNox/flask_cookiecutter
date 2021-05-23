@@ -20,6 +20,7 @@ $ cookiecutter https://github.com/7552-2020C2-grupo5/flask_cookiecutter
 ```
 
 Or you can point to your local clone of the repo.
+Read the README on the generated repo!
 
 ## Init repo
 ```bash
