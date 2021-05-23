@@ -16,7 +16,7 @@ pip3 install --user -r requirements.txt
 
 To generate a new project:
 ```
-$ cookiecutter https://github.com/7552-2020C2-grupo5/flask_cookiecutter
+$ cookiecutter https://github.com/CrossNox/flask_cookiecutter
 ```
 
 Or you can point to your local clone of the repo.

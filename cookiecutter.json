@@ -1,10 +1,10 @@
 {
     "project_name": "project_name",
     "package_name": "{{cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_')}}",
-    "author_name": "75.52 - 2020C2 - G5",
-    "author_email": "FIUBA email",
+    "author_name": "author_name",
+    "author_email": "author_email",
     "description": "Short description of the project.",
-    "github_user": "7552-2020C2-grupo5",
+    "github_user": "github_user",
     "github_repo": "{{cookiecutter.package_name}}",
     "use_datadog": ["yes", "no"]
 }
