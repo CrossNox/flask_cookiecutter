@@ -138,7 +138,9 @@ git push heroku master
 4. Deploy 🚀
 
 ## [Optional] Badge
-Add this badge to your readme: `![](https://heroku-badge.herokuapp.com/?app={{cookiecutter.package_name | replace("_", "-") }})`
+
+
+Add this badge to your readme: `![Heroku](https://pyheroku-badge.herokuapp.com/?app={{ cookiecutter.package_name | replace("_", "-") }}&style=flat)`
 
 ## Diagnosing errors
 You can fetch logs from the app using `heroku logs --tail`.
