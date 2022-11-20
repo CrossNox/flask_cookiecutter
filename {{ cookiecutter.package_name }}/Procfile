@@ -1,0 +1,4 @@
+release: poetry run python {{cookiecutter.package_name}}/manage.py db upgrade
+{% if cookiecutter.use_datadog == 'no' %}
+web: poetry run gunicorn -w 2 --bind 0.0.0.0:$PORT "{{cookiecutter.package_name}}.app:create_app()"
+{% endif %}
